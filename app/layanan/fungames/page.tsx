@@ -1,0 +1,92 @@
+export default function FunGamesPage() {
+  return (
+    <section className="pt-28 pb-24 bg-gradient-to-b from-green-50 via-white to-green-50 text-gray-800">
+      <div className="container mx-auto px-6 max-w-5xl">
+
+        {/* Title */}
+        <div className="text-center pb-24 md:pt-5 md:pb-5">
+          <h1 className="text-3xl sm:text-4xl font-bold text-center mb-6 text-[#2d3a29]">
+            Fun Games & Team Building
+          </h1>
+
+          <div className="w-24 h-1 bg-green-600 mx-auto rounded-full mb-6"></div>
+
+          <p className="text-gray-600 max-w-3xl mx-auto leading-relaxed text-lg">
+            Aktivitas interaktif yang dirancang untuk meningkatkan kerja sama tim,
+            komunikasi, kreativitas, dan kekompakan melalui permainan-permainan seru
+            yang menyenangkan.
+          </p>
+        </div>
+
+        {/* Main Image */}
+        <div className="flex justify-center mb-14">
+          <img
+            src="/teambuilding.png"
+            alt="Fun Games & Team Building"
+            className="rounded-3xl shadow-xl w-full max-w-[900px] h-[450px] object-cover 
+                       transition-all duration-300 hover:scale-[1.02]"
+          />
+        </div>
+
+        {/* Two Columns */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-16">
+
+          {/* Left: Game List */}
+          <div className="bg-white rounded-2xl shadow-md p-8 border border-green-100">
+            <h2 className="text-2xl font-bold text-green-700 mb-5">
+              Jenis Permainan
+            </h2>
+            <ul className="space-y-3 text-gray-700 text-lg">
+              <li>• Ice breaking</li>
+              <li>• Estafet air</li>
+              <li>• Menara bambu</li>
+              <li>• Spider web</li>
+              <li>• Balap karung</li>
+              <li>• Puzzle teamwork</li>
+            </ul>
+          </div>
+
+          {/* Right: Price List */}
+          <div className="bg-green-700 text-white rounded-2xl shadow-lg p-8">
+            <h2 className="text-2xl font-bold mb-5">
+              Harga Fun Games
+            </h2>
+
+            <div className="space-y-4 text-lg">
+              <p className="flex justify-between">
+                <span>Paket 1 Jam</span>
+                <span className="font-bold">Rp 30.000 / orang</span>
+              </p>
+              <p className="flex justify-between">
+                <span>Paket 2 Jam</span>
+                <span className="font-bold">Rp 45.000 / orang</span>
+              </p>
+              <p className="flex justify-between">
+                <span>Paket Team Building</span>
+                <span className="font-bold">Rp 65.000 / orang</span>
+              </p>
+            </div>
+
+            <div className="mt-6 p-4 bg-white/25 rounded-xl text-center">
+              <p className="text-sm">Harga mulai dari</p>
+              <p className="text-3xl font-extrabold">Rp 30.000</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Booking Button */}
+        <div className="text-center">
+          <a
+            href="https://wa.me/6281234567890"
+            target="_blank"
+            className="inline-block px-12 py-4 rounded-2xl text-white font-semibold text-xl 
+            shadow-xl bg-green-600 hover:bg-green-700 transition-all hover:scale-110 active:scale-95"
+          >
+            📩 Booking / Reservasi Sekarang
+          </a>
+        </div>
+
+      </div>
+    </section>
+  );
+}
