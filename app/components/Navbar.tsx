@@ -142,7 +142,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3" onClick={closeAllMenus}>
             <Image
-              src="/logo2.png"
+              src="/logo.png"
               alt="Warnasari Camping & Adventure"
               width={90}
               height={20}
@@ -221,6 +221,7 @@ export default function Navbar() {
                   {[
                     { href: "/layanan/travel", label: "Travel Package Pangalengan" },
                     { href: "/layanan/camping", label: "Camping" },
+                    { href: "/layanan/campingriverside", label: "Camping Riverside" },
                     { href: "/layanan/glamping", label: "Glamping" },
                     { href: "/layanan/rafting", label: "Rafting" },
                     { href: "/layanan/atv", label: "ATV (All-Terrain Vehicle)" },

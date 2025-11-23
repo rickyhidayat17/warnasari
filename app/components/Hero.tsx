@@ -3,7 +3,13 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay, Parallax, EffectFade } from "swiper/modules";
+import {
+  Navigation,
+  Pagination,
+  Autoplay,
+  Parallax,
+  EffectFade,
+} from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -37,10 +43,18 @@ export default function Hero() {
   ];
 
   return (
-    <section id="hero" className="relative h-screen max-h-[90vh] overflow-hidden">
-
+    <section
+      id="hero"
+      className="relative min-h-[60vh] sm:min-h-[70vh] md:h-screen md:max-h-[90vh] overflow-hidden"
+    >
       <Swiper
-        modules={[Navigation, Pagination, Autoplay, Parallax, EffectFade]}
+        modules={[
+          Navigation,
+          Pagination,
+          Autoplay,
+          Parallax,
+          EffectFade,
+        ]}
         navigation
         pagination={{ clickable: true }}
         autoplay={{ delay: 4000, disableOnInteraction: false }}
@@ -50,39 +64,42 @@ export default function Hero() {
         loop
         className="h-full"
       >
-        {/* Parallax container */}
-        <div slot="container-start" data-swiper-parallax="-20%" className="absolute inset-0">
-        </div>
-
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
             <div className="relative h-screen max-h-[90vh] flex items-center justify-center text-center px-4 overflow-hidden">
 
-              {/* Background Parallax Image */}
-              <div
-                className="absolute inset-0"
-                data-swiper-parallax="-30%"
-                data-swiper-parallax-scale="1.15"
-              >
+              {/* BACKGROUND BLUR — agar tidak ada ruang kosong */}
+              <div className="absolute inset-0">
+                <Image
+                  src={slide.image}
+                  alt=""
+                  fill
+                  className="object-cover blur-2xl scale-110 brightness-50"
+                />
+              </div>
+
+              {/* IMAGE UTAMA — tidak terpotong (object-contain) */}
+              <div className="absolute inset-0 flex items-center justify-center px-4">
                 <Image
                   src={slide.image}
                   alt={slide.title}
                   fill
                   priority={slide.id === 1}
-                  className="object-cover object-center"
+                  className="object-contain z-10"
+                  sizes="100vw"
                 />
               </div>
 
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-black/60" />
+              {/* Overlay gelap */}
+              <div className="absolute inset-0 bg-black/40 z-[15]" />
 
-              {/* Text Content */}
+              {/* TEXT */}
               <motion.div
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9 }}
                 data-swiper-parallax="-100"
-                className="relative z-10 text-white max-w-2xl mx-auto px-4"
+                className="relative z-20 text-white max-w-[90%] sm:max-w-2xl mx-auto px-2 sm:px-4"
               >
                 <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold drop-shadow-xl leading-[1.2]">
                   {slide.title}
@@ -101,7 +118,6 @@ export default function Hero() {
                   Jelajahi Sekarang
                 </motion.a>
               </motion.div>
-
             </div>
           </SwiperSlide>
         ))}

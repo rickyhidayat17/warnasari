@@ -29,6 +29,12 @@ export default function Ulasan() {
         "Service sangat ramah dan harga terjangkau untuk paketan gathering.",
       rating: 5,
     },
+    {
+      name: "Eko Prasetyo",
+      review:
+        "Rekomen banget untuk event gathering, harga terjangkau, fasilitas dan pelayanan sangat bagus",
+      rating: 5,
+    },
   ];
 
   const duplicated = [...reviews, ...reviews];

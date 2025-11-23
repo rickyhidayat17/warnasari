@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <footer className="text-white">
       {/* BAGIAN ATAS */}
-      <div className="bg-gradient-to-br from-green-700 to-green-500 py-16">
+      <div className="bg-blue-800 py-16">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-12 md:gap-10 text-center md:text-left">
           
           {/* LOGO */}
@@ -65,7 +65,7 @@ export default function Footer() {
                 href="https://www.facebook.com/nenden.hildafsuziah"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-green-700 hover:bg-gray-200 transition shadow-md"
+                className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-blue-900 hover:bg-gray-200 transition shadow-md"
               >
                 <FaFacebookF className="text-[18px]" />
               </a>
@@ -74,7 +74,7 @@ export default function Footer() {
                 href="https://www.instagram.com/warnasaricamping_ground"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-green-700 hover:bg-gray-200 transition shadow-md"
+                className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-pink-700 hover:bg-gray-200 transition shadow-md"
               >
                 <FaInstagram className="text-[18px]" />
               </a>
@@ -83,7 +83,7 @@ export default function Footer() {
                 href="https://www.tiktok.com/@warnasaricamping_ground"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-green-700 hover:bg-gray-200 transition shadow-md"
+                className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-black hover:bg-gray-200 transition shadow-md"
               >
                 <FaTiktok className="text-[18px]" />
               </a>
@@ -102,7 +102,7 @@ export default function Footer() {
       </div>
 
       {/* BAGIAN BAWAH */}
-      <div className="bg-[#0b1f44] text-center text-xs sm:text-sm py-5 border-t border-white/10">
+      <div className="bg-[#0b1f44] text-center text-xs sm:text-sm py-3 border-t border-white/10">
         © 2025 Warnasari Camping & Adventure. All Rights Reserved.
       </div>
     </footer>

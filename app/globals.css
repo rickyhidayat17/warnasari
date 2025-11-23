@@ -2,82 +2,125 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ===== Global Styles ===== */
-body {
-  font-family: 'Inter', sans-serif;
-  background-color: #f9f9f9;
-  color: #222;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
+/* ====================================================
+   ULTRA PREMIUM GLOBAL STYLES
+   - Smooth reveals
+   - Glassmorphism helpers
+   - Shadow tiers
+   - Image loading & prefers-reduced-motion safe
+   ==================================================== */
 
-  /* Animasi fade-in saat halaman dimuat */
+/* ---------- Config + base tweaks ---------- */
+:root{
+  --bg: #f7f8f9;
+  --muted: #6b7280;
+  --accent: #16a34a; /* green accent */
+  --glass-bg: rgba(255,255,255,0.6);
+  --glass-border: rgba(255,255,255,0.45);
+  --card-shadow-1: 0 6px 18px rgba(15,23,42,0.06);
+  --card-shadow-2: 0 12px 40px rgba(15,23,42,0.08);
+}
+
+* { box-sizing: border-box; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+html,body,#__next { height: 100%; }
+
+/* ---------- Body entrance (subtle, fast) ---------- */
+.page-animate {
   opacity: 0;
-  animation: fadeInBody 1s ease-in-out forwards;
+  animation: upAppear 0.55s cubic-bezier(.22,.9,.3,1) 0.05s forwards;
 }
 
-/* Keyframes untuk efek fade-in */
-@keyframes fadeInBody {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+
+@keyframes upAppear {
+  0% { opacity: 0; transform: translateY(8px); filter: blur(5px); }
+  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
 }
 
-/* ===== Swiper Navigation Buttons ===== */
-.swiper-button-next,
-.swiper-button-prev {
-  color: #fff !important;
-  opacity: 0.7;
-  transition: all 0.3s ease;
+/* Respect user motion preference */
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+  body { opacity: 1; transform: none; filter: none; animation: none !important; }
 }
 
-.swiper-button-next:hover,
-.swiper-button-prev:hover {
-  opacity: 1;
-  transform: scale(1.1);
+/* ---------- Scroll behavior / anchor offset ---------- */
+html { scroll-behavior: smooth; }
+.section-scroll { scroll-margin-top: 6.25rem; } /* use this class instead of global <section> */
+
+/* ---------- Glassmorphism utility ---------- */
+.bg-glass {
+  background: linear-gradient(180deg, rgba(255,255,255,0.66), rgba(255,255,255,0.50));
+  backdrop-filter: blur(8px) saturate(110%);
+  -webkit-backdrop-filter: blur(8px) saturate(110%);
+  border: 1px solid var(--glass-border);
 }
 
-/* ===== Swiper Pagination Bullets ===== */
-.swiper-pagination-bullet {
-  background: #fff !important;
-  opacity: 0.5;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
+/* ---------- Shadow tiers ---------- */
+.shadow-soft { box-shadow: var(--card-shadow-1); }
+.shadow-medium { box-shadow: var(--card-shadow-2); }
 
-.swiper-pagination-bullet:hover {
-  transform: scale(1.2);
-  opacity: 0.8;
+/* ---------- Hover elevation (micro-interaction) ---------- */
+.hover-elevate {
+  transition: transform .34s cubic-bezier(.2,.9,.3,1), box-shadow .34s cubic-bezier(.2,.9,.3,1);
+  will-change: transform, box-shadow;
 }
+.hover-elevate:hover { transform: translateY(-6px); box-shadow: 0 18px 50px rgba(15,23,42,0.12); }
 
-.swiper-pagination-bullet-active {
-  opacity: 1;
-  transform: scale(1.3);
+/* ---------- Premium reveal utilities (small, reusable) ---------- */
+@keyframes revealUp {
+  from { opacity: 0; transform: translateY(18px); filter: blur(6px); }
+  to   { opacity: 1; transform: translateY(0); filter: blur(0); }
 }
-html {
-  scroll-behavior: smooth;
-}
+.reveal { animation: revealUp .52s cubic-bezier(.2,.9,.3,1) both; }
 
-section {
-  scroll-margin-top: 7rem; /* Sesuaikan tinggi navbar (misalnya 80–100px) */
-}
+/* Stagger helpers - use inline style for delay or utility classes */
+.reveal-slow { animation-duration: .7s; }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+/* ---------- Modal / popup zoom ---------- */
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(28px) scale(.985); filter: blur(6px); }
+  to   { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
 }
+.modal-in { animation: modalIn .36s cubic-bezier(.2,.9,.3,1) both; }
 
-.animate-fadeIn {
-  animation: fadeIn 0.25s ease-out;
+/* ---------- Floating subtle float animation (for large floats) ---------- */
+@keyframes floaty {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
 }
+.float-very-slow { animation: floaty 4.6s ease-in-out infinite; }
+
+/* ---------- Image loading ---------- */
+img { display:block; max-width:100%; height:auto; }
+img.fade-in {
+  opacity: 0;
+  transform-origin: center;
+  transition: opacity .48s ease-out, transform .48s cubic-bezier(.2,.9,.3,1);
+}
+img.fade-in.loaded { opacity: 1; transform: none; }
+
+/* ---------- Small helpers ---------- */
+.visually-hidden { position:absolute!important; height:1px; width:1px; overflow:hidden; clip:rect(1px,1px,1px,1px); white-space:nowrap; border:0; padding:0; margin:-1px; }
+.btn-accent {
+  @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-semibold shadow-md;
+  background: linear-gradient(180deg,var(--accent), #0ea45a);
+  color: white;
+  transition: transform .18s cubic-bezier(.2,.9,.3,1), box-shadow .18s;
+}
+.btn-accent:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(16,185,129,0.18); }
+
+/* ---------- Swiper safety classes (Tailwind purge) ----------
+   If Tailwind purge removes these selectors add them to safelist
+   in tailwind.config.js (see README).
+------------------------------------------------------------ */
+.swiper-button-next, .swiper-button-prev, .swiper-pagination-bullet {}
+
+/* ---------- Accessibility focus styling ---------- */
+:focus { outline: none; }
+:focus-visible { outline: 3px solid rgba(34,197,94,0.18); outline-offset: 3px; border-radius: 6px; }
+
+/* ---------- Utility note: use .section-scroll on anchor targets ----------
+   e.g. <section id="about" className="section-scroll"> ... </section>
+   This avoids global <section> override and is more predictable.
+*/
 

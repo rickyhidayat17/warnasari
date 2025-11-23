@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function GlampingPage() {
+export default function CampingRiversidePage() {
   return (
     <section className="pt-28 pb-24 bg-gradient-to-b from-green-50 via-white to-green-50 text-gray-800">
       <div className="container mx-auto px-6 max-w-5xl">
@@ -9,7 +9,7 @@ export default function GlampingPage() {
         {/* Title */}
         <div className="text-center pb-24 md:pt-5 md:pb-5">
           <h1 className="text-3xl sm:text-4xl font-bold text-center mb-6 text-[#2d3a29]">
-            Glamping Pangalengan
+            Camping Riverside Pangalengan
           </h1>
 
           <div className="w-24 h-1 bg-green-600 mx-auto rounded-full mb-6"></div>
@@ -23,8 +23,8 @@ export default function GlampingPage() {
         {/* Image */}
         <div className="flex justify-center mb-14">
           <img
-            src="/glamping.png"
-            alt="Glamping Pangalengan"
+            src="/cabin.jpg"
+            alt="Camping Riverside Pangalengan"
             className="rounded-3xl shadow-xl w-full max-w-[900px] h-[450px] object-cover 
                        transition-all duration-300 hover:scale-[1.02]"
           />
@@ -36,33 +36,34 @@ export default function GlampingPage() {
           {/* Facilities */}
           <div className="bg-white rounded-2xl shadow-md p-8 border border-green-100">
             <h2 className="text-2xl font-bold text-green-700 mb-5">
-              Fasilitas Glamping
+              Fasilitas Camping Riverside
             </h2>
             <ul className="space-y-3 text-gray-700 text-lg">
               <li>• Kasur empuk + selimut hangat</li>
               <li>• Toilet dalam</li>
-              <li>• Pemandangan sungai / perkebunan</li>
+              <li>• Pemandangan danau / perkebunan</li>
               <li>• BBQ area</li>
               <li>• Lampu & listrik</li>
               <li>• Sarapan pagi</li>
+              <li>• Menyediakan Cabin Villa Cottage Barak</li>
             </ul>
           </div>
 
           {/* Price */}
           <div className="bg-green-700 text-white rounded-2xl shadow-lg p-8">
-            <h2 className="text-2xl font-bold mb-5">Harga Glamping</h2>
+            <h2 className="text-2xl font-bold mb-5">Harga Camping Riverside</h2>
 
             <div className="space-y-4 text-lg">
               <p className="flex justify-between">
-                <span>Glamping Standard</span>
+                <span>Camping Riverside Standard</span>
                 <span className="font-bold">Rp 450.000 / malam</span>
               </p>
               <p className="flex justify-between">
-                <span>Glamping View Lake</span>
+                <span>Camping Riverside Family</span>
                 <span className="font-bold">Rp 550.000 / malam</span>
               </p>
               <p className="flex justify-between">
-                <span>Glamping Family</span>
+                <span>Cabin Villa Cottage Barak</span>
                 <span className="font-bold">Rp 750.000 / malam</span>
               </p>
             </div>
