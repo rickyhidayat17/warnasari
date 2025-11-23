@@ -66,60 +66,85 @@ export default function Hero() {
       >
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
-            <div className="relative h-screen max-h-[90vh] flex items-center justify-center text-center px-4 overflow-hidden">
+  <div className="
+    relative 
+    h-[100vh]            /* FULLSCREEN DI SEMUA DEVICE */
+    w-full 
+    flex 
+    items-center 
+    justify-center 
+    text-center 
+    overflow-hidden
+  ">
+    
+    {/* BACKGROUND FULL COVER */}
+    <Image
+      src={slide.image}
+      alt={slide.title}
+      fill
+      priority={slide.id === 1}
+      className="
+        object-cover      /* BENAR-BENAR FULL */
+        w-full h-full 
+        brightness-50
+      "
+      sizes="100vw"
+    />
 
-              {/* BACKGROUND BLUR — agar tidak ada ruang kosong */}
-              <div className="absolute inset-0">
-                <Image
-                  src={slide.image}
-                  alt=""
-                  fill
-                  className="object-cover blur-2xl scale-110 brightness-50"
-                />
-              </div>
+    {/* Overlay */}
+    <div className="absolute inset-0 bg-black/40"></div>
 
-              {/* IMAGE UTAMA — tidak terpotong (object-contain) */}
-              <div className="absolute inset-0 flex items-center justify-center px-4">
-                <Image
-                  src={slide.image}
-                  alt={slide.title}
-                  fill
-                  priority={slide.id === 1}
-                  className="object-contain z-10"
-                  sizes="100vw"
-                />
-              </div>
+    {/* TEXT */}
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.9 }}
+      data-swiper-parallax="-100"
+      className="
+        relative 
+        z-20 
+        text-white 
+        max-w-[90%] 
+        sm:max-w-2xl 
+        mx-auto
+        px-4
+      "
+    >
+      <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold leading-tight">
+        {slide.title}
+      </h1>
 
-              {/* Overlay gelap */}
-              <div className="absolute inset-0 bg-black/40 z-[15]" />
+      <p className="mt-4 text-sm sm:text-lg md:text-xl text-gray-200">
+        {slide.description}
+      </p>
 
-              {/* TEXT */}
-              <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.9 }}
-                data-swiper-parallax="-100"
-                className="relative z-20 text-white max-w-[90%] sm:max-w-2xl mx-auto px-2 sm:px-4"
-              >
-                <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold drop-shadow-xl leading-[1.2]">
-                  {slide.title}
-                </h1>
+      <motion.a
+        href="/galeri"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        className="
+          inline-block 
+          mt-6 
+          bg-green-600 
+          text-white 
+          px-6 py-3 
+          sm:px-8 sm:py-3 
+          rounded-full 
+          font-semibold 
+          text-base 
+          hover:bg-green-700 
+          transition-colors 
+          shadow-lg
+        "
+      >
+        Jelajahi Sekarang
+      </motion.a>
+    </motion.div>
 
-                <p className="mt-4 text-sm sm:text-lg md:text-xl text-gray-200 leading-relaxed">
-                  {slide.description}
-                </p>
+  </div>
+</SwiperSlide>
 
-                <motion.a
-                  href="/galeri"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="inline-block mt-6 bg-green-600 text-white px-6 py-3 sm:px-8 sm:py-3 rounded-full font-semibold text-base hover:bg-green-700 transition-colors shadow-lg"
-                >
-                  Jelajahi Sekarang
-                </motion.a>
-              </motion.div>
-            </div>
-          </SwiperSlide>
+
         ))}
       </Swiper>
     </section>
