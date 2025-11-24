@@ -75,7 +75,7 @@ export default function PaintballPage() {
         {/* Booking Button */}
         <div className="text-center">
           <a
-            href="https://wa.me/6281234567890"
+            href="https://wa.me/62882000998523"
             target="_blank"
             className="inline-block px-12 py-4 rounded-2xl text-white font-semibold text-xl 
             shadow-xl bg-green-600 hover:bg-green-700 transition-all hover:scale-110 active:scale-95"

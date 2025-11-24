@@ -5,7 +5,7 @@ export const metadata = {
 export default function VisiMisiPage() {
   return (
     <main className="max-w-5xl mx-auto px-4 pt-32 pb-24 md:pt-40 md:pb-32">
-      <h1 className="text-4xl md:text-4xl font-bold text-center mb-6 text-[#2d3a29]">
+      <h1 className="text-3xl sm:text-4xl font-bold text-center mb-10 text-[#2d3a29]">
         Visi & Misi
       </h1>
 

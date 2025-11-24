@@ -88,7 +88,7 @@ export default function CampingPage() {
         {/* CTA */}
         <div className="text-center">
           <Link
-            href="https://wa.me/6281234567890"
+            href="https://wa.me/62882000998523"
             className="inline-block px-10 py-4 rounded-2xl text-white font-semibold text-xl 
                        shadow-lg bg-green-600 hover:bg-green-700 transition-all hover:scale-105"
           >

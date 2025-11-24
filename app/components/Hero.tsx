@@ -48,81 +48,92 @@ export default function Hero() {
       className="relative min-h-[60vh] sm:min-h-[70vh] md:h-screen md:max-h-[90vh] overflow-hidden"
     >
       <Swiper
-        modules={[
-          Navigation,
-          Pagination,
-          Autoplay,
-          Parallax,
-          EffectFade,
-        ]}
+        modules={[Navigation, Pagination, Autoplay, Parallax, EffectFade]}
         navigation
-        pagination={{ clickable: true }}
+        pagination={{
+          el: ".swiper-pagination",
+          clickable: true,
+        }}
         autoplay={{ delay: 4000, disableOnInteraction: false }}
         speed={1200}
         parallax={true}
         effect="fade"
         loop
-        className="h-full"
+        className="h-center relative"
       >
+
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
-  <div className="
-    relative 
-    h-[100vh]            /* FULLSCREEN DI SEMUA DEVICE */
-    w-full 
-    flex 
-    items-center 
-    justify-center 
-    text-center 
-    overflow-hidden
-  ">
-    
-    {/* BACKGROUND FULL COVER */}
-    <Image
-      src={slide.image}
-      alt={slide.title}
-      fill
-      priority={slide.id === 1}
-      className="
-        object-cover      /* BENAR-BENAR FULL */
-        w-full h-full 
-        brightness-50
-      "
-      sizes="100vw"
-    />
+            <div
+              className="
+              relative 
+              h-[75vh]              
+              sm:h-[80vh]           
+              md:h-[100vh]          
+              w-full 
+              flex 
+              items-center 
+              justify-center 
+              text-center 
+              overflow-hidden
+            "
+            >
+              {/* BACKGROUND FULL COVER */}
+              <Image
+                src={slide.image}
+                alt={slide.title}
+                fill
+                priority={slide.id === 1}
+                className="
+                object-cover
+                object-center          
+                w-full 
+                h-full 
+                brightness-50
+              "
+                sizes="100vw"
+              />
 
-    {/* Overlay */}
-    <div className="absolute inset-0 bg-black/40"></div>
 
-    {/* TEXT */}
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.9 }}
-      data-swiper-parallax="-100"
-      className="
-        relative 
-        z-20 
-        text-white 
-        max-w-[90%] 
-        sm:max-w-2xl 
-        mx-auto
-        px-4
-      "
-    >
-      <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold leading-tight">
-        {slide.title}
-      </h1>
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-black/40"></div>
 
-      <p className="mt-4 text-sm sm:text-lg md:text-xl text-gray-200">
-        {slide.description}
-      </p>
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.9 }}
+                data-swiper-parallax="-100"
+                className="
+                relative 
+                z-20 
+                text-white 
+                max-w-[90%] 
+                sm:max-w-2xl 
+                mx-auto
+                px-4
 
-      <motion.a
-        href="/galeri"
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        className="
+                flex flex-col
+                items-center 
+                justify-center      
+                h-full             
+                md:h-auto
+                pt-20 md:pt-0       
+              "
+              >
+
+                <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold leading-tight sm:whitespace-nowrap">
+                  {slide.title}
+                </h1>
+
+                <p className="mt-4 text-sm sm:text-lg md:text-xl text-gray-200">
+                  {slide.description}
+                </p>
+
+                <motion.a
+                  href="/galeri"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="
           inline-block 
           mt-6 
           bg-green-600 
@@ -136,16 +147,14 @@ export default function Hero() {
           transition-colors 
           shadow-lg
         "
-      >
-        Jelajahi Sekarang
-      </motion.a>
-    </motion.div>
-
-  </div>
-</SwiperSlide>
-
-
+                >
+                  Jelajahi Sekarang
+                </motion.a>
+              </motion.div>
+            </div>
+          </SwiperSlide>
         ))}
+        <div className="swiper-pagination"></div>
       </Swiper>
     </section>
   );

@@ -19,7 +19,7 @@ export default function GaleriPage() {
 
   const galeriItems: GaleriItem[] = [
     { type: "video", thumbnail: "/atv.mp4", title: "ATV Adventure", category: "atv" },
-    { type: "video", thumbnail: "/camping2.mp4", title: "Camping Outdoor", category: "camping" },
+    { type: "video", thumbnail: "/offroad.mp4", title: "Offroad Adventure", category: "offroad" },
     { type: "video", thumbnail: "/campingriverside.mp4", title: "Camping Riverside", category: "camping-riverside" },
     { type: "video", thumbnail: "/rafting.mp4", title: "Arung Jeram", category: "rafting" },
   ];

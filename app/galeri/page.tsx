@@ -11,23 +11,26 @@ type GaleriItem =
 export default function GaleriPage() {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [selectedItem, setSelectedItem] = useState<GaleriItem | null>(null);
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 9; // misal 3 kolom x 3 baris
 
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setSelectedIndex(null);
+      if (e.key === "Escape") setSelectedItem(null);
     };
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
   }, []);
 
+
   // Reset modal & halaman saat search/filter berubah
   useEffect(() => {
-    setSelectedIndex(null);
-    setCurrentPage(1);
-  }, [search, filter]);
+  setSelectedItem(null);
+  setCurrentPage(1);
+}, [search, filter]);
+
 
   const galeriItems: GaleriItem[] = [
     { type: "video", thumbnail: "/atv.mp4", title: "ATV Adventure", category: "atv" },
@@ -52,6 +55,7 @@ export default function GaleriPage() {
     { type: "video", thumbnail: "/offroad3.mp4", title: "Offroad Adventure", category: "offroad" },
     { type: "video", thumbnail: "/offroad4.mp4", title: "Offroad Adventure", category: "offroad" },
     { type: "video", thumbnail: "/offroad5.mp4", title: "Offroad Adventure", category: "offroad" },
+    { type: "video", thumbnail: "/offroad6.mp4", title: "Offroad Adventure", category: "offroad" },
     { type: "video", thumbnail: "/paintball.mp4", title: "Paintball Pangalengan", category: "paintball" },
     { type: "video", thumbnail: "/travelpackage.mp4", title: "Travel & Package", category: "travel-package" },
     { type: "video", thumbnail: "/travelpackage3.mp4", title: "Travel & Package", category: "travel-package" },
@@ -77,11 +81,19 @@ export default function GaleriPage() {
 
 
   // Filter items sesuai search & kategori
+  // FILTER ITEMS (search + category)
   const filteredItems = galeriItems.filter((item) => {
-    const matchSearch = item.title.toLowerCase().includes(search.toLowerCase());
+    const searchableText =
+      (item.title +
+        " " +
+        ("src" in item ? item.src : item.thumbnail)).toLowerCase();
+
+    const matchSearch = searchableText.includes(search.toLowerCase());
     const matchCategory = filter === "all" ? true : item.category === filter;
+
     return matchSearch && matchCategory;
   });
+
 
   // Pagination
   const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
@@ -89,19 +101,21 @@ export default function GaleriPage() {
   const endIndex = startIndex + itemsPerPage;
   const currentItems = filteredItems.slice(startIndex, endIndex);
 
-  const selectedItem = selectedIndex !== null ? filteredItems[selectedIndex] : null;
-
   const handleNext = () => {
-    if (!filteredItems.length || selectedIndex === null) return;
-    setSelectedIndex((prev) => (prev! + 1) % filteredItems.length);
+    if (!selectedItem) return;
+    const idx = filteredItems.findIndex(el => el === selectedItem);
+    const next = filteredItems[(idx + 1) % filteredItems.length];
+    setSelectedItem(next);
   };
 
   const handlePrev = () => {
-    if (!filteredItems.length || selectedIndex === null) return;
-    setSelectedIndex((prev) => (prev! - 1 + filteredItems.length) % filteredItems.length);
+    if (!selectedItem) return;
+    const idx = filteredItems.findIndex(el => el === selectedItem);
+    const prev = filteredItems[(idx - 1 + filteredItems.length) % filteredItems.length];
+    setSelectedItem(prev);
   };
 
-const [clickPosition, setClickPosition] = useState<number | null>(null);
+  const [clickPosition, setClickPosition] = useState<number | null>(null);
 
 
   return (
@@ -146,7 +160,7 @@ const [clickPosition, setClickPosition] = useState<number | null>(null);
           {currentItems.map((item, i) => (
             <div
               key={`${item.category}-${item.title}-${i}`}
-              onClick={() => setSelectedIndex(startIndex + i)}
+              onClick={() => setSelectedItem(item)}
               className="group rounded-xl overflow-hidden cursor-pointer shadow-md border border-[#d9ccb9] bg-[#fffaf3] transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
             >
               <h3 className="text-center text-sm sm:text-base md:text-lg font-semibold text-[#2c3c26] py-2 sm:py-3 bg-gradient-to-r from-[#d8c6a8] to-[#cbb695] border-b border-[#b9a17f]">
@@ -180,69 +194,88 @@ const [clickPosition, setClickPosition] = useState<number | null>(null);
 
 
         {/* Pagination Controls */}
-        <div className="flex flex-col sm:flex-row justify-center items-center mt-6 sm:mt-8 gap-3 sm:gap-4">
+        <div className="flex flex-row justify-center items-center mt-8 gap-3 text-center">
+
+          {/* PREV */}
           <button
             onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
             disabled={currentPage === 1}
-            className="w-full sm:w-auto px-4 py-2 bg-[#6f8f63] text-white rounded-lg disabled:bg-gray-400"
+            className={`
+      flex items-center justify-center gap-2
+      px-4 py-2 rounded-lg 
+      text-sm font-semibold
+      border border-[#cbb695]
+      bg-white/80 backdrop-blur-sm shadow-sm
+      hover:bg-[#6f8f63] hover:text-white hover:border-[#6f8f63]
+      transition-all duration-300
+      ${currentPage === 1 ? "opacity-40 cursor-not-allowed" : ""}
+    `}
           >
-            Prev
+            <ChevronLeft size={16} /> Prev
           </button>
-          <span className="text-[#2c3c26] font-semibold text-sm sm:text-base">
+
+          {/* PAGE STATUS */}
+          <span
+            className="
+      flex items-center justify-center
+      px-4 py-2 rounded-lg 
+      bg-white/70 backdrop-blur-sm 
+      border border-[#d8cbb8] shadow-sm 
+      text-[#2d3a29] font-semibold text-sm
+    "
+          >
             {currentPage} / {totalPages}
           </span>
+
+          {/* NEXT */}
           <button
             onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
             disabled={currentPage === totalPages}
-            className="w-full sm:w-auto px-4 py-2 bg-[#6f8f63] text-white rounded-lg disabled:bg-gray-400"
+            className={`
+      flex items-center justify-center gap-2
+      px-4 py-2 rounded-lg 
+      text-sm font-semibold
+      border border-[#cbb695]
+      bg-white/80 backdrop-blur-sm shadow-sm
+      hover:bg-[#6f8f63] hover:text-white hover:border-[#6f8f63]
+      transition-all duration-300
+      ${currentPage === totalPages ? "opacity-40 cursor-not-allowed" : ""}
+    `}
           >
-            Next
+            Next <ChevronRight size={16} />
           </button>
-        </div>
 
+        </div>
 
         {/* FULLSCREEN MODAL */}
         {selectedItem && (
-          <div
-            className="
-      fixed inset-0 z-[999]
-      bg-black/90 backdrop-blur-sm
-      flex items-center justify-center p-4
-    "
-          >
-            {/* CLOSE BUTTON */}
+          <div className="fixed inset-0 z-[999] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4">
+
+            {/* CLOSE */}
             <button
-              onClick={() => setSelectedIndex(null)}
+              onClick={() => setSelectedItem(null)}
               className="absolute top-4 right-4 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full transition"
             >
               <X size={22} />
             </button>
 
-            {/* LEFT ARROW */}
+            {/* LEFT */}
             <button
-              onClick={() =>
-                setSelectedIndex(
-                  (selectedIndex! - 1 + filteredItems.length) % filteredItems.length
-                )
-              }
-              className="absolute left-4 top-1/2 -translate-y-1/2
-      bg-black/50 hover:bg-black/80 p-3 rounded-full text-white transition"
+              onClick={handlePrev}
+              className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/80 p-3 rounded-full text-white transition"
             >
               <ChevronLeft size={26} />
             </button>
 
-            {/* RIGHT ARROW */}
+            {/* RIGHT */}
             <button
-              onClick={() =>
-                setSelectedIndex((selectedIndex! + 1) % filteredItems.length)
-              }
-              className="absolute right-4 top-1/2 -translate-y-1/2
-      bg-black/50 hover:bg-black/80 p-3 rounded-full text-white transition"
+              onClick={handleNext}
+              className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/80 p-3 rounded-full text-white transition"
             >
               <ChevronRight size={26} />
             </button>
 
-            {/* VIDEO / IMAGE CENTER */}
+            {/* MEDIA */}
             <div className="w-full max-w-5xl aspect-video flex items-center justify-center">
               {selectedItem.type === "image" && (
                 <img
@@ -262,12 +295,12 @@ const [clickPosition, setClickPosition] = useState<number | null>(null);
               )}
             </div>
 
-            {/* TITLE */}
             <p className="absolute bottom-6 text-white text-lg md:text-xl font-semibold text-center px-4">
               {selectedItem.title}
             </p>
           </div>
         )}
+
       </div>
     </section>
   );

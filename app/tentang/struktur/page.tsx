@@ -10,15 +10,16 @@ export default function StrukturOrganisasi() {
       <div className="w-full md:transform md:scale-100 origin-top transition-all">
 
         {/* Judul */}
-        <h1 className="text-3xl md:text-4xl font-bold text-center mb-2 text-[#2d3a29]">
+        <h1 className="text-3xl sm:text-4xl font-bold text-center mb-2 text-[#2d3a29]">
           Struktur Organisasi
         </h1>
-
+        <h1 className="text-3xl sm:text-4xl font-bold text-center mb-2 text-[#2d3a29]">
+          Warnasari Camping & Adventure
+        </h1>
         {/* Subjudul */}
-        <p className="text-gray-600 text-center mt-2 max-w-2xl mx-auto text-base md:text-lg mb-8">
-          Warnasari Camping & Adventure.
+        <p className="text-gray-600 text-center mt-2 max-w-2xl mx-auto text-base md:text-lg mb-2">
+        Pangalengan, Kabupaten Bandung, Jawa Barat
         </p>
-
         {/* Hero Image */}
         <div className="flex justify-center mb-12 md:mb-16">
           <div className="relative w-full max-w-[900px] px-2 md:px-0">
